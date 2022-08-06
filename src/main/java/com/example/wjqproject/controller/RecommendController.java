@@ -1,11 +1,8 @@
 package com.example.wjqproject.controller;
 
-import com.example.wjqproject.HttpClientHelper;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.io.IOException;
 
 @RestController
@@ -56,14 +53,14 @@ public class RecommendController {
     //http://localhost:8080/getRecommendProject?longitude=12&latitude=34
     @GetMapping("/getRecommendProject")
     public String getRecommendProject(@RequestParam(value = "skinColor",defaultValue="") String skinColor) throws IOException {
-        if(skinColor != ""){
-            return "请输入皮肤类型：skin tones";
-        }
         System.out.println(skinColor);
-        //todo-调用api 获取紫外线 uv
-        String url = "http://localhost:8080/getTime?skinColor=1&hairColor=2&eyeColor=3";
-        String res = HttpClientHelper.sendGet(url);
-        System.out.println("Res" + res);
+        if(skinColor.length() < 2){
+            return "please input the skin tones";
+        }
+        //todo-调用api 获取紫外线 uv(api)
+//        String url = "http://localhost:8080/getTime?skinColor=1&hairColor=2&eyeColor=3";
+//        String res = HttpClientHelper.sendGet(url);
+//        System.out.println("Res" + res);
         int uv = 2; //uv值
         //todo-uv 查数据库 获取推荐内容
         int type = 0;
